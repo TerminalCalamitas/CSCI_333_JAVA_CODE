@@ -1,0 +1,74 @@
+package csci333;
+/*
+ * Caleb Knapp 11/05 CSCI-333 Homework 5
+ * This code implements a chained hash table
+ */
+
+import java.util.LinkedList;
+
+/**
+ * The ChainedHashTable Class implements a Chained Hash Table using the
+ * multiplication method to hash elements. This implementation works on generic
+ * types.
+ * 
+ * @param <T> Generic type to allow for multiple variable type
+ */
+public class ChainedHashTable<T> {
+	private LinkedList<T>[] hashTable;
+	private int powerOf2;
+	private final double A;
+
+	/**
+	 * Constructs a ChainedHashTable instance using an array of linked lists. The
+	 * length of the array of Linked Lists is the smallest power of 2 larger than
+	 * the number of elements.
+	 * 
+	 * @param numInputs The number of elements that will be inserted into the hash
+	 *                  table
+	 */
+	public ChainedHashTable(int numInputs) {
+		A = 0.6180339887;
+
+		powerOf2 = 1;
+		while (powerOf2 <= numInputs) {
+			powerOf2 *= 2;
+		}
+
+		hashTable = new LinkedList[powerOf2];
+		for (int i = 0; i < powerOf2; i++) {
+			hashTable[i] = new LinkedList<>(); // initialize each index with an empty LinkedList
+		}
+	}
+
+	public void insert(T value) {
+		int index = hash(value.hashCode());
+		hashTable[index].add(value);
+	}
+
+	public void delete(T value) {
+		int index = hash(value.hashCode());
+		hashTable[index].remove(value);
+	}
+
+	public T search(T value) {
+		int index = hash(value.hashCode());
+		for (T entry : hashTable[index]) {
+			if (entry.equals(value)) {
+				return entry;
+			}
+		}
+		return null;
+	}
+
+	private int hash(int key) {
+		return (int) (powerOf2 * Math.abs((key * A) % 1));
+	}
+
+	public String toString() {
+		String stringValue = hashTable[0].toString();
+		for (int i = 1; i < powerOf2; i++) {
+			stringValue += ", " + hashTable[i].toString();
+		}
+		return stringValue;
+	}
+}

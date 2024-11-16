@@ -1,0 +1,78 @@
+package csci333;
+
+public class Main {
+	public static void main(String[] args) {
+        // Elements to be inserted into the hash tables
+        Integer[] elementsToInsert = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 
+                                      110, 120, 130, 140, 150, 160, 170, 180, 190, 200};
+
+        Integer[] elementsToSearch = {10, 50, 110, 160, 200};    // Elements that exist in the tables
+        Integer[] elementsNotInTable = {5, 25, 105, 165, 205};   // Elements that do not exist in the tables
+
+        System.out.println("=============== Testing ChainedHashTable ===============");
+        
+        // Initialize ChainedHashTable with capacity of 20
+        ChainedHashTable<Integer> chainedTable = new ChainedHashTable<>(20);
+
+        // Step 1: Insert elements
+        System.out.println("\n--- Step 1: Insert 20 elements ---");
+        for (Integer element : elementsToInsert) {
+            chainedTable.insert(element);
+        }
+        System.out.println("Chained Hash Table after initial insertions:\n" + chainedTable);
+
+        // Step 2: Remove a few elements
+        System.out.println("\n--- Step 2: Remove a few elements ---");
+        chainedTable.delete(20);
+        chainedTable.delete(50);
+        chainedTable.delete(150);
+        System.out.println("Chained Hash Table after deletions:\n" + chainedTable);
+
+        // Step 3: Search for existing and non-existing elements
+        System.out.println("\n--- Step 3: Search for elements ---");
+        System.out.println("Searching for existing elements:");
+        for (Integer element : elementsToSearch) {
+            System.out.println("Element " + element + " found: " + (chainedTable.search(element) != null));
+        }
+
+        System.out.println("\nSearching for non-existent elements:");
+        for (Integer element : elementsNotInTable) {
+            System.out.println("Element " + element + " found: " + (chainedTable.search(element) != null));
+        }
+
+        System.out.println("\nFinal state of Chained Hash Table:\n" + chainedTable);
+
+        System.out.println("\n=============== Testing OpenAddressedHashTable ===============");
+
+        // Initialize OpenAddressedHashTable with capacity of 20
+        OpenAddressedHashTable<Integer> openAddressTable = new OpenAddressedHashTable<>(20);
+
+        // Step 1: Insert elements
+        System.out.println("\n--- Step 1: Insert 20 elements ---");
+        for (Integer element : elementsToInsert) {
+            openAddressTable.insert(element);
+        }
+        System.out.println("Open Addressed Hash Table after initial insertions:\n" + openAddressTable);
+
+        // Step 2: Remove a few elements
+        System.out.println("\n--- Step 2: Remove a few elements ---");
+        openAddressTable.delete(20);
+        openAddressTable.delete(50);
+        openAddressTable.delete(150);
+        System.out.println("Open Addressed Hash Table after deletions:\n" + openAddressTable);
+
+        // Step 3: Search for existing and non-existing elements
+        System.out.println("\n--- Step 3: Search for elements ---");
+        System.out.println("Searching for existing elements:");
+        for (Integer element : elementsToSearch) {
+            System.out.println("Element " + element + " found: " + (openAddressTable.search(element) != null));
+        }
+
+        System.out.println("\nSearching for non-existent elements:");
+        for (Integer element : elementsNotInTable) {
+            System.out.println("Element " + element + " found: " + (openAddressTable.search(element) != null));
+        }
+
+        System.out.println("\nFinal state of Open Addressed Hash Table:\n" + openAddressTable);
+    }
+}

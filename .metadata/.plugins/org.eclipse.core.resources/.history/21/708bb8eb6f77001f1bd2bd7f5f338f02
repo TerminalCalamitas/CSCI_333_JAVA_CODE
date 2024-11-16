@@ -1,0 +1,97 @@
+package csci333;
+
+import java.util.Arrays;
+import java.util.Random;
+
+public class Quicksort<T extends Comparable<T>> {
+	private T[] array;
+	private Random rand;
+	public Quicksort(T[] array) {
+		rand = new Random();
+		this.array = array;
+	}
+
+	private int partition(int start, int end) {
+		T pivot_value = array[end];
+		int i = start - 1;
+		for (int j = start; j < end; j++) {
+			if (array[j].compareTo(pivot_value) <= 0) {
+				i++;
+				swap(i, j);
+			}
+		}
+		swap(i + 1, end);
+		return i + 1;
+	}
+
+	private void quicksortNaive(int start, int end) {
+		if (start < end) {
+			int pivot = partition(start, end);
+			quicksortNaive(start, pivot - 1);
+			quicksortNaive(pivot + 1, end);
+		}
+	}
+
+	public void quicksortNaive() {
+		quicksortNaive(0, array.length - 1);
+	}
+
+	private void quicksortBestOfThree(int start, int end) {
+		if (start < end) {
+			int middle = (start + end) / 2;
+			int pivot = 0;
+			// PIVOT SHOULD BE MEDIAN
+			if (array[start].compareTo(array[middle]) <= 0) {
+				if (array[middle].compareTo(array[end]) <= 0) {
+					pivot = middle; // Start <= middle <= end
+				} else {
+					pivot = end; // Start <= end <= middle
+				}
+			} else {
+				if (array[start].compareTo(array[end]) <= 0) {
+					pivot = start; // middle <= start <= end
+				} else {
+					pivot = middle; // end <= middle <= start
+				}
+			}
+			
+			// move pivot to end
+			swap(pivot, end);
+			// perform quicksort on the array
+			pivot = partition(start, end);
+			quicksortBestOfThree(start, pivot - 1);
+			quicksortBestOfThree(pivot + 1, end);
+		}
+	}
+
+	public void quicksortBestOfThree() {
+		quicksortBestOfThree(0, array.length - 1);
+
+	}
+
+	private void quicksortRandomized(int start, int end) {
+		if (start < end) {
+			int pivot = rand.nextInt(start, end);
+			
+			pivot = partition(start, end);
+			quicksortRandomized(start, pivot - 1);
+			quicksortRandomized(pivot + 1, end);
+		}
+	}
+
+	public void quicksortRandomized() {
+		quicksortRandomized(0, array.length - 1);
+
+	}
+
+	private void swap(int first, int second) {
+		T temp = array[first];
+		array[first] = array[second];
+		array[second] = temp;
+	}
+
+	public String toString() {
+		return Arrays.toString(array);
+
+	}
+}

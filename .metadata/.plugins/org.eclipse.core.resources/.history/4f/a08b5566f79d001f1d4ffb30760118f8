@@ -1,0 +1,50 @@
+package csci333;
+
+import java.util.LinkedList;
+/*
+ * Implement a Java class named ChainedHashTable, based on a hash table with chaining using the multiplication method 
+ * from the slides/textbook. Your should use an array of LinkedList<T> as your primary instance variable / data field.
+
+    The constructor should have a parameter for n, the total number of inputs expected. In the constructor, create the 
+    array of size m as the first power of 2 larger than n, full of constructed but empty linked lists at each index. 
+    You may choose A directly, or use the integer fraction method.
+    There should also be public methods for insert, delete, and search as in the slides/textbook.
+    Define a toString method for the entire hash table, which runs a loop and concatenates each linked list in the hash 
+    table into the returned String; consider using the LinkedList class's toString method.
+    You will need a private helper method named hash. Given an int key parameter, it computes and returns an int index of 
+    the table.
+
+ */
+public class ChainedHashTable<T> {
+	private LinkedList[] hashmap;
+	private int powerOf2;
+	
+	public ChainedHashTable(int numInputs) {
+		powerOf2 = 1;
+		while (powerOf2 <= numInputs) {
+			powerOf2 *= 2;
+		}
+		hashmap = new LinkedList[powerOf2];
+        for (int i = 0; i < powerOf2; i++) {
+            hashmap[i] = new LinkedList<>();  // initialize each index with an empty LinkedList
+        }
+	}
+	
+	public void insert(T value) {
+		int index = hash(value.hashcode());
+	}
+	
+	public void delete()  {
+		
+	}
+	
+	public int search() {
+		
+	}
+	
+	private int hash(int key) {
+		double A = 0.6180339887;
+		return (int) (powerOf2 * ((key * A) % 1));
+		
+	}
+}

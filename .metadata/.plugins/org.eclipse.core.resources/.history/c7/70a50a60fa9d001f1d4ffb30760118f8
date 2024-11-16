@@ -1,0 +1,47 @@
+package csci333;
+
+import java.util.LinkedList;
+
+public class ChainedHashTable<T> {
+	private LinkedList<T>[] hashtable;
+	private int powerOf2;
+	private final double A;
+	
+	public ChainedHashTable(int numInputs) {
+		A = 0.6180339887;
+		
+		powerOf2 = 1;
+		while (powerOf2 <= numInputs) {
+			powerOf2 *= 2;
+		}
+		
+		hashtable = new LinkedList[powerOf2];
+        for (int i = 0; i < powerOf2; i++) {
+            hashtable[i] = new LinkedList<>();  // initialize each index with an empty LinkedList
+        }
+	}
+	
+	public void insert(T value) {
+		int index = hash(value.hashCode());
+		hashtable[index].add(value);
+	}
+	
+	public void delete(T value)  {
+		int index = hash(value.hashCode());
+		hashtable[index].remove(value);
+	}
+	
+	public T search(T value) {
+        int index = hash(value.hashCode());
+        for (T entry : hashtable[index]) {
+        	if (entry.equals(value)) {
+        		return entry;
+        	}
+        }
+        return null;
+	}
+	
+	private int hash(int key) {
+		return (int) (powerOf2 * Math.abs((key * A) % 1));
+	}
+}

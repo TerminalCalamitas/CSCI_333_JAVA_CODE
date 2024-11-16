@@ -1,0 +1,9 @@
+INDEX VERSION 1.134+/home/caleb/Documents/UNCA-All-Classes/CSCI-333/java-code/.metadata/.plugins/org.eclipse.jdt.core
+2928411575.index
+1865797976.index
+820549140.index
+1206888066.index
+4010541665.index
+3649778465.index
+2850146222.index
+820718315.index

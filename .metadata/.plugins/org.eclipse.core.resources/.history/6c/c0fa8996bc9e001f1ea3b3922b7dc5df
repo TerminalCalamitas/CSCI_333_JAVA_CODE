@@ -1,0 +1,64 @@
+package csci333;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        System.out.println("---------------Chained---------------");
+    	// Create a ChainedHashTable instance with an initial capacity of 16 elements
+        ChainedHashTable<Integer> hashTableChained = new ChainedHashTable<>(16);
+
+        // Test inserting multiple elements
+        System.out.println("Inserting multiple elements:");
+        int[] elementsToInsert = {15, 25, 35, 45, 55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165};
+        for (int element : elementsToInsert) {
+            hashTableChained.insert(element);
+        }
+        System.out.println(hashTableChained);
+
+        // Test searching for a few existing elements
+        System.out.println("Searching for existing elements 25 and 105:");
+        System.out.println("Element 25 found: " + (hashTableChained.search(25) != null));
+        System.out.println("Element 105 found: " + (hashTableChained.search(105) != null));
+
+        // Test searching for a non-existing element
+        System.out.println("Searching for non-existent element 200:");
+        System.out.println("Element 200 found: " + (hashTableChained.search(200) != null));
+
+        // Test deleting an element that exists in the hash table
+        System.out.println("Deleting element 35:");
+        hashTableChained.delete(35);
+        System.out.println(hashTableChained);
+
+        // Test deleting a non-existent element
+        System.out.println("Deleting non-existent element 200:");
+        hashTableChained.delete(200);
+        System.out.println(hashTableChained);
+
+        // Insert more elements to observe chaining behavior
+        System.out.println("Inserting additional elements to create more collisions:");
+        int[] additionalElements = {175, 185, 195, 205, 215, 225, 235, 245, 255, 265};
+        for (int element : additionalElements) {
+            hashTableChained.insert(element);
+        }
+        System.out.println(hashTableChained);
+
+        // Final state of the hash table
+        System.out.println("Final state of the hash table:");
+        System.out.println(hashTableChained);
+        
+        System.out.println("---------------OpenAddress---------------");
+        OpenAddressedHashTable<Integer> hashTableOpenAddress = new OpenAddressedHashTable<>(10);
+
+        hashTableOpenAddress.insert(15);
+        hashTableOpenAddress.insert(25);
+        hashTableOpenAddress.insert(35);
+
+        System.out.println("Hash Table: " + hashTableOpenAddress);
+
+        System.out.println("Search 25: " + hashTableOpenAddress.search(25));
+        
+        hashTableOpenAddress.delete(25);
+        System.out.println("After deleting 25: " + hashTableOpenAddress);
+        
+        System.out.println("Search 25 after deletion: " + hashTableOpenAddress.search(25));
+    }
+}

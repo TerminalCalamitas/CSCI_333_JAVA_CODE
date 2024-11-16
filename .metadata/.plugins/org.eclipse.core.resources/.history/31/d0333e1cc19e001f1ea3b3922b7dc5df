@@ -1,0 +1,88 @@
+package csci333;
+
+public class Main {
+	public static void main(String[] args) throws Exception {
+		int[] elementsToInsert = { 15, 25, 35, 45, 55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165 };
+		int[] additionalElements = { 175, 185, 195, 205, 215, 225, 235, 245, 255, 265 };
+
+		System.out.println("=============== Chained Hash Table Operations ===============");
+
+		// Initialize a ChainedHashTable with 16 initial capacity
+		ChainedHashTable<Integer> hashTableChained = new ChainedHashTable<>(16);
+
+		// Inserting elements
+		System.out.println("\n--- Step 1: Insert initial elements ---");
+		for (int element : elementsToInsert) {
+			hashTableChained.insert(element);
+		}
+		System.out.println("Hash Table after initial insertions:\n" + hashTableChained);
+
+		// Searching for elements
+		System.out.println("\n--- Step 2: Search for specific elements ---");
+		System.out.println("Searching for 25: " + (hashTableChained.search(25) != null));
+		System.out.println("Searching for 105: " + (hashTableChained.search(105) != null));
+		System.out.println("Searching for non-existent 200: " + (hashTableChained.search(200) != null));
+
+		// Deleting elements
+		System.out.println("\n--- Step 3: Delete existing and non-existing elements ---");
+		hashTableChained.delete(35);
+		System.out.println("Hash Table after deleting 35:\n" + hashTableChained);
+		hashTableChained.delete(200); // Attempt to delete non-existent
+		System.out.println("Hash Table after attempting to delete non-existent 200:\n" + hashTableChained);
+
+		// Inserting additional elements to observe chaining behavior
+		System.out.println("\n--- Step 4: Insert additional elements to observe chaining ---");
+		for (int element : additionalElements) {
+			hashTableChained.insert(element);
+		}
+		System.out.println("Hash Table after additional insertions:\n" + hashTableChained);
+
+		System.out.println("\nFinal state of Chained Hash Table:\n" + hashTableChained);
+
+		System.out.println("\n=============== Open Addressing Hash Table Operations ===============");
+
+		try {
+			// Initialize an OpenAddressedHashTable with capacity based on elementsToInsert size
+			OpenAddressedHashTable<Integer> hashTableOpenAddress = new OpenAddressedHashTable<>(elementsToInsert.length);
+
+			// Inserting elements
+			System.out.println("\n--- Step 1: Insert initial elements ---");
+			for (int element : elementsToInsert) {
+				hashTableOpenAddress.insert(element);
+			}
+			System.out.println("Hash Table after initial insertions:\n" + hashTableOpenAddress);
+
+			// Searching for elements
+			System.out.println("\n--- Step 2: Search for specific elements ---");
+			System.out.println("Searching for 25: " + (hashTableOpenAddress.search(25) != null));
+			System.out.println("Searching for 105: " + (hashTableOpenAddress.search(105) != null));
+			System.out.println("Searching for non-existent 200: " + (hashTableOpenAddress.search(200) != null));
+
+			// Deleting elements
+			System.out.println("\n--- Step 3: Delete existing and non-existing elements ---");
+			hashTableOpenAddress.delete(35);
+			System.out.println("Hash Table after deleting 35:\n" + hashTableOpenAddress);
+
+			// Attempt to delete a non-existent element
+			System.out.println("\nAttempting to delete non-existent 200:");
+			try {
+				hashTableOpenAddress.delete(200);
+			} catch (Exception e) {
+				System.err.println("Error: " + e.getMessage());
+			}
+			System.out.println("Hash Table after attempting to delete 200:\n" + hashTableOpenAddress);
+
+			// Inserting additional elements
+			System.out.println("\n--- Step 4: Insert additional elements to fill the table ---");
+			for (int element : additionalElements) {
+				hashTableOpenAddress.insert(element);
+			}
+			System.out.println("Hash Table after additional insertions:\n" + hashTableOpenAddress);
+
+			System.out.println("\nFinal state of Open Addressing Hash Table:\n" + hashTableOpenAddress);
+
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+	}
+}

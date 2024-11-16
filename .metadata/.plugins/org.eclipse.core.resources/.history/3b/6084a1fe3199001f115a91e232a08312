@@ -1,0 +1,61 @@
+package csci333;
+/*
+Quickselect class, with Java generic type <T extends Comparable<T>>
+
+	Define a private helper method T randomizedQuickselect. Implement Randomized Quickselect as in the slides/textbook.
+One parameter is an array of type T [ ].  Two more parameters are the inclusive bounds of the subarray to consider.
+One more parameter is i, the order statistic to find in the parameter array. You are searching in the parameter array, not
+the data field array.
+Define a public wrapper method T randomizedQuickselect, with only one parameter: the desired order statistic i.
+This public wrapper method will ensure that the select will occur nondestructively. Make a deep copy of the data field
+array to create another T [ ] of the same length filled with the same handles. Then, make the top level call of private
+randomizedQuickselect with the copied array. (As the private method rearranges this copy, the original data field array
+remains pristine.)
+*/
+
+public class Quickselect<T extends Comparable<T>> {
+	private T[] array;
+
+	public Quickselect(T[] array) {
+		this.array = array;
+	}
+
+	public T randomizedQuickSelect(int i) {
+
+		return null;
+	}
+
+	/**
+	 * Partitions the array into two subarrays around a pivot element. The left
+	 * subarray is all the elements less than the pivot and the right subarray is
+	 * all elements greater than the pivot.
+	 *
+	 * @param start The starting index of the subarray to partition.
+	 * @param end   The ending index of the subarray to partition.
+	 * @return The index of the pivot element in the partitioned array.
+	 */
+	private int partition(int start, int end) {
+		T pivot_value = array[end];
+		int i = start - 1;
+		for (int j = start; j < end; j++) {
+			if (array[j].compareTo(pivot_value) <= 0) {
+				i++;
+				swap(i, j);
+			}
+		}
+		swap(i + 1, end);
+		return i + 1;
+	}
+
+	/**
+	 * Swaps the elements at the given indices in the array.
+	 *
+	 * @param first  The index of the first element to swap.
+	 * @param second The index of the second element to swap.
+	 */
+	private void swap(int first, int second) {
+		T temp = array[first];
+		array[first] = array[second];
+		array[second] = temp;
+	}
+}

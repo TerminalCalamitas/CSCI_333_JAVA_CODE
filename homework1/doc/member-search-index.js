@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"homework1","c":"TrinarySearch","l":"main(String[])","url":"main(java.lang.String[])"},{"p":"homework1","c":"TrinarySearch","l":"TrinarySearch()","url":"%3Cinit%3E()"},{"p":"homework1","c":"TrinarySearch","l":"trinarySearch(int, int[], int, int)","url":"trinarySearch(int,int[],int,int)"}]

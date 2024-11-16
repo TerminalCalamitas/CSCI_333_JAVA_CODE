@@ -1,0 +1,49 @@
+package csci333;
+
+public class Main {
+    public static void main(String[] args) {
+        // Create a ChainedHashTable instance with an initial capacity of 10 elements
+        ChainedHashTable<Integer> hashTable = new ChainedHashTable<>(10);
+
+        // Test inserting elements
+        System.out.println("Inserting elements:");
+        hashTable.insert(15);
+        hashTable.insert(25);
+        hashTable.insert(35);
+        hashTable.insert(45);
+        hashTable.insert(55);
+        System.out.println(hashTable);
+
+        // Test searching for an existing element
+        System.out.println("Searching for element 25:");
+        Integer found = hashTable.search(25);
+        if (found != null) {
+            System.out.println("Element 25 found: " + found);
+        } else {
+            System.out.println("Element 25 not found.");
+        }
+
+        // Test searching for a non-existing element
+        System.out.println("Searching for element 99:");
+        Integer notFound = hashTable.search(99);
+        if (notFound != null) {
+            System.out.println("Element 99 found: " + notFound);
+        } else {
+            System.out.println("Element 99 not found.");
+        }
+
+        // Test deleting an element
+        System.out.println("Deleting element 25:");
+        hashTable.delete(25);
+        System.out.println(hashTable);
+
+        // Test deleting an element that does not exist
+        System.out.println("Deleting non-existent element 99:");
+        hashTable.delete(99);
+        System.out.println(hashTable);
+
+        // Display the final state of the hash table
+        System.out.println("Final state of the hash table:");
+        System.out.println(hashTable);
+    }
+}

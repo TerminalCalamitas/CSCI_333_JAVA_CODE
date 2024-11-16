@@ -1,0 +1,82 @@
+package csci333;
+
+import java.util.Arrays;
+
+public class Quicksort<T extends Comparable<T>> {
+	private T[] array;
+
+	public Quicksort(T[] array) {
+		this.array = array;
+	}
+
+	private int partition(int start, int end) {
+		T pivot_value = array[end];
+		int i = start - 1;
+		for (int j = start; j < end; j++) {
+			if (array[j].compareTo(pivot_value) <= 0) {
+				i++;
+				swap(i, j);
+			}
+		}
+		swap(i + 1, end);
+		return i + 1;
+	}
+
+	private void quicksortNaive(int start, int end) {
+		if (start < end) {
+			int pivot = partition(start, end);
+			quicksortNaive(start, pivot - 1);
+			quicksortNaive(pivot + 1, end);
+		}
+	}
+
+	public void quicksortNaive() {
+		quicksortNaive(0, array.length - 1);
+	}
+
+	private void quicksortBestOfThree(int start, int end) {
+		if (start < end) {
+			int middle = (start + end) / 2;
+			int pivot = 0;
+			// PIVOT SHOULD BE MEDIAN
+			if ((array[middle].compareTo(array[start]) <= 0 && array[start].compareTo(array[end]) <= 0) || (array[end].compareTo(array[start]) <= 0 && array[start].compareTo(array[middle]) <= 0)) {
+				pivot = start;
+			} else if ((array[start].compareTo(array[middle]) <= 0 && array[middle].compareTo(array[end]) <= 0) || (array[end].compareTo(array[middle]) <= 0 && array[middle].compareTo(array[start]) <= 0)) {
+				pivot = middle;
+			} else {
+				pivot = end;
+			}
+			
+			System.out.println("start:" + start + " middle:" + middle + " end:" + end + " median:" + pivot);
+
+			swap(pivot, end);
+			quicksortBestOfThree(start, pivot - 1);
+			quicksortBestOfThree(pivot + 1, end);
+		}
+	}
+
+	public void quicksortBestOfThree() {
+		quicksortBestOfThree(0, array.length - 1);
+
+	}
+
+	private void quicksortRandomized(int start, int end) {
+
+	}
+
+	public void quicksortRandomized() {
+		quicksortRandomized(0, array.length - 1);
+
+	}
+
+	private void swap(int first, int second) {
+		T temp = array[first];
+		array[first] = array[second];
+		array[second] = temp;
+	}
+
+	public String toString() {
+		return Arrays.toString(array);
+
+	}
+}

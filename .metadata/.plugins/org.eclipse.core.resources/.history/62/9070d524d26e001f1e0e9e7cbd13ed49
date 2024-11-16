@@ -1,0 +1,52 @@
+package csci333;
+
+public class MaxHeap <T extends Comparable<T>> {
+	private T[] array;
+	private int heapsize;
+	
+	public MaxHeap (T[] array) {
+		this.array = (T[]) new Object[array.length];
+		heapsize = array.length;
+	}
+	
+	private int leftChildOf (int index) {
+		int parentIndex = index - 1 / 2;
+		if (parentIndex >= 0) {
+			return parentIndex;
+		} else {
+			return -1;
+		}
+	}
+	
+	private int rightChildOf (int index) {
+		int parentIndex = index - 2 / 2;
+		if (parentIndex >= 0) {
+			return parentIndex;
+		} else {
+			return -1;
+		}
+	}
+	
+	public void printMaxHeap () {
+		System.out.println("heapsize: " + heapsize);
+		System.out.print("[" + array[0]);
+		
+		for (int i = 1; i < heapsize; i++) {
+			System.out.print(", " + array[i]);
+		}
+		
+		System.out.print("]\n");
+	}
+	
+	private void maxHeapify (int index) {
+		
+	}
+	
+	private void buildMaxHeap () {
+		
+	}
+	
+	private void heapsort () {
+		
+	}
+}

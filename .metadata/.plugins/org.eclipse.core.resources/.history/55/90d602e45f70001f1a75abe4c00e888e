@@ -1,0 +1,70 @@
+package testing.ai;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+public class Ai_test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	private String generateResponse(String context) {
+        try {
+            String apiKey = "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";
+
+            URL url = new URL(API_URL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + apiKey);
+            connection.setRequestProperty("Content-Type", "application/json");
+
+            String requestBody = String.format("{\"messages\": [{\"role\": \"system\", \"content\": \"You are an AI run Minecraft bot that humorously responds to " +
+                    "random chat messages. Keep responses under 255 characters. Do not include any previous message in your response." +
+                    " Stay natural, blend into the conversation, and if unsure, ask a relevant question. Act like you have a big secret that no one should know " +
+                    "and be paranoid about people guessing it.\"}, " +
+                    "{\"role\": \"user\", \"content\": \"%s\"}], \"model\": \"%s\"}", context, MODEL);
+
+            connection.setDoOutput(true);
+            connection.getOutputStream().write(requestBody.getBytes());
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String response = reader.readLine();
+            reader.close();
+
+            JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+            JsonArray choicesArray = jsonObject.getAsJsonArray("choices");
+
+            if (choicesArray != null && !choicesArray.isEmpty()) {
+                JsonObject choiceObject = choicesArray.get(0).getAsJsonObject();
+                JsonObject messageObject = choiceObject.getAsJsonObject("message");
+                JsonElement contentElement = messageObject.get("content");
+
+                if (contentElement != null) {
+                    String generatedResponse = contentElement.getAsString();
+                    // Ensure response is within the character limit
+                    if (generatedResponse.length() > 255) {
+                        generatedResponse = generatedResponse.substring(0, 252) + "...";
+                    }
+                    return generatedResponse;
+                }
+            }
+
+            return "No content found in the API response.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error generating response.";
+        }
+    }
+}

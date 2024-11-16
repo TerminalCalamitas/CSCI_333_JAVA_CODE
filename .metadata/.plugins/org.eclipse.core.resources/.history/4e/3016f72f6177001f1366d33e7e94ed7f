@@ -1,0 +1,53 @@
+package csci333;
+
+public class Quicksort<T extends Comparable<T>> {
+	private T[] array;
+	
+	public Quicksort(T[] array) {
+		this.array = array;	
+	}
+	
+	private int partition(int start, int end) {
+		T pivot_value = array[end];
+		int i = start - 1;
+		/*x = A[r] // The value x is called the pivot value, chosen at index r
+				i = p - 1 
+				for j = p to r - 1 // j is loop variable. Iterate through subarray.
+				   if A[j] <= x // we find a “small” value less than the pivot x
+				      i = i + 1
+				      swap A[i] with A[j] // The “small” element goes left
+				swap A[i + 1] with A[r] // put pivot between left and right sides
+				return i + 1 // This is the index q in QUICKSORT*/
+		return -1;
+	}
+	
+	private void quicksortNaive(int start, int end) {
+		
+	}
+	
+	public void quicksortNaive() {
+		
+	}
+	
+	private void quicksortBestOfThree(int start, int end) {
+		
+	}
+	
+	public void quicksortBestOfThree() {
+		
+	}
+	
+	private void quicksortRandomized(int start, int end) {
+		
+	}
+	
+	public void quicksortRandomized() {
+		
+	}
+	
+	private void swap(int first, int second) {
+		T temp = array[first];
+		array[first] = array[second];
+		array[second] = temp;
+	}
+}

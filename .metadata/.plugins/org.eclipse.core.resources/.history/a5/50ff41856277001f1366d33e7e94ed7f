@@ -1,0 +1,13 @@
+package csci333;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String[] array = {"3", "2", "5", "4", "6", "1", "9", "7", "8", "0"};
+		Quicksort sortArray = new Quicksort(array);
+		
+		
+	}
+
+}

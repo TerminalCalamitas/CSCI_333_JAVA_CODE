@@ -1,0 +1,73 @@
+package csci333;
+/*
+ * Caleb Knapp 11/05 CSCI-333 Homework 5
+ * This code implements an open addressed hash table
+ */
+
+import java.util.Arrays;
+
+public class OpenAddressedHashTable<T> {
+	private T[] hashTable;
+	private final double A;
+	private static final int DELETED = Integer.MIN_VALUE;
+
+	public OpenAddressedHashTable(int numInputs) {
+		A = 0.6180339887;
+		hashTable = (T[]) new Object[numInputs];
+
+	}
+
+	public int insert(T value) throws Exception {
+		int key = hash(value.hashCode());
+		for (int i = 0; i < hashTable.length -1; i++) {
+			int j = hash(key, i);
+			if (j == 2) {
+				System.out.println("sup buddies I'm where teh problem's at");
+			}
+			if (hashTable[j] == null || hashTable[j].equals((T) Integer.valueOf(DELETED))) { // Empty or deleted slot
+				hashTable[j] = value;
+				return j;
+			}
+		}
+		throw new Exception("Hash table overflow");
+	}
+
+	public int delete(T key) throws Exception {
+		 for (int i = 0; i < hashTable.length - 1; i++) {
+	          int j = hash(key.hashCode(), i);
+	          if (hashTable[j].equals(key)) {
+	        	  hashTable[j] = (T) Integer.valueOf(DELETED);
+	        	  return j;  // Key found
+	          }
+	      }
+		 throw new Exception("Element not found");  // Key not found after probing
+
+
+	}
+
+	public T search(T key) {
+      for (int i = 0; i < hashTable.length - 1; i++) {
+          int j = hash(key.hashCode(), i);
+          if (hashTable[j] == null) {
+              return null;  // Key not found
+          }
+          if (hashTable[j].equals(key)) {
+              return hashTable[j];  // Key found
+          }
+      }
+      return null;  // Key not found after probing
+
+	}
+
+	private int hash(int key) {
+		return (int) (hashTable.length * Math.abs((key * A) % 1));
+	}
+
+	private int hash(int key, int i) {
+		return (hash(key) + i) % hashTable.length;
+	}
+
+	public String toString() {
+		return Arrays.toString(hashTable);
+	}
+}

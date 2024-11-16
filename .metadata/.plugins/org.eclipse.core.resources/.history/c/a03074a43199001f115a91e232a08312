@@ -1,0 +1,52 @@
+package csci333;
+
+import java.util.Arrays;
+
+public class Main {
+
+  public static void main(String[] args) {
+    int[] numbers = { 42, 7, 93, 58, 21, 86, 15, 67, 39, 2, 74, 50, 33, 91, 28, 62, 19, 88, 3, 77 };
+    System.out.println("Before sort: " + Arrays.toString(numbers));
+
+    numbers = countingSort(numbers);
+    System.out.println("After sort: " + Arrays.toString(numbers));
+
+  }
+
+  public static int[] countingSort(int[] array) {
+    int[] sortedArray = new int[array.length];
+    int largestValue = array[0];
+
+    // Find largest element
+    for (int i = 1; i < array.length; i++) {
+      if (array[i] > largestValue) {
+        largestValue = array[i];
+      }
+    }
+
+    countingSort(array, sortedArray, largestValue);
+    return sortedArray;
+
+  }
+
+  private static void countingSort(int[] A, int[] B, int k) {
+    // Declare array C to hold numbers of maximum size k
+    int[] C = new int[k + 1];
+
+    // Count occurances of each element in A
+    for (int i = 0; i < A.length; i++) {
+      C[A[i]]++;
+    }
+
+    // Make C hold Cumulative counts
+    for (int i = 1; i < C.length; i++) {
+      C[i] += C[i - 1];
+    }
+
+    // Place values from A into B using C
+    for (int i = A.length - 1; i > 0; i--) {
+      B[C[A[i]] - 1] = A[i];
+      C[A[i]]--;
+    }
+  }
+}
